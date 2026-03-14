@@ -1,7 +1,6 @@
 package commands;
 
 import java.awt.event.*;
-//import javax.swing.event.*;
 
 public class CommandsFactory{
 
@@ -30,11 +29,4 @@ public class CommandsFactory{
 			default: return null;
 		}
 	}
-	
-	/*public DocumentListener createEditor(String commandName) {
-		switch(commandName) {
-			case "TextEdit": return new TextEdit();
-			default: return null;
-		}
-	}*/
 }

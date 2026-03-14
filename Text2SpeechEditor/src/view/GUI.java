@@ -23,9 +23,9 @@ public class GUI extends JFrame {
 	private JMenuBar menubar = new JMenuBar();
 	private SimpleAttributeSet attributeSet = new SimpleAttributeSet();
 	private String saveTime = ""; //Time of last save
-	private String creationTime = ""; //Time of creation
-	private String author = ""; //Document author
-	private String title = ""; //Document title
+	private String creationTime = "";
+	private String author = "";
+	private String title = "";
 	private String filePath;
 	private boolean noFile = true;
 	private boolean recordMacro = false;
@@ -48,10 +48,10 @@ public class GUI extends JFrame {
   		
         menubar = initMenu();
  
-		frame.add(menubar);frame.add(splitPane);	//bale mpara kai panel sto para8uro
-		frame.setJMenuBar(menubar); ///bale thn mpara
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); ///
-		frame.addWindowListener(new WindowAdapter() {		//////auto einai to para8uro an 8eloume ;h oxi na kleisei to frame apo to x panw deksia
+		frame.add(menubar);frame.add(splitPane);
+		frame.setJMenuBar(menubar);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent we)
 			{ 
@@ -63,9 +63,9 @@ public class GUI extends JFrame {
 			}
 		});
 		
-		frame.pack(); // einai gia kapoia ergaleia (isws den xreiastei)
-        frame.setSize(800, 600); //mege8os arxikou para8yrou
-		frame.setLocationRelativeTo(null);		//sto kentro o8onhs
+		frame.pack();
+        frame.setSize(800, 600);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 	
@@ -74,58 +74,58 @@ public class GUI extends JFrame {
 	    TextLineNumber tln = new TextLineNumber(botPane);
 	    scrollPane.setRowHeaderView( tln );
 		
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);  // we want it to split the window vertically
-        splitPane.setDividerLocation(100);                    // the initial position of the divider is 100
-        splitPane.setTopComponent(topPane);                  // at the top we want our "topPanel"
-        splitPane.setBottomComponent(scrollPane);            // and at the bottom we want our "botPanel"
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        splitPane.setDividerLocation(100);
+        splitPane.setTopComponent(topPane);
+        splitPane.setBottomComponent(scrollPane);
         
-        botPane.setLayout(new BoxLayout(botPane, BoxLayout.Y_AXIS));		//oti einai apo katw einai to botpanel
+        botPane.setLayout(new BoxLayout(botPane, BoxLayout.Y_AXIS));
         botPane.setText("Your text will appear here to be edited after creating a new file or opening an existing one.");
         botPane.setEditable(false);
         
-        StyleConstants.setBold(attributeSet, true);  //attribute BOLD  
-		StyleConstants.setForeground(attributeSet, Color.blue); //attribute BLUE
-		topPane.setCharacterAttributes(attributeSet, true);  //Set the attributes before adding text  
+        StyleConstants.setBold(attributeSet, true); 
+		StyleConstants.setForeground(attributeSet, Color.blue);
+		topPane.setCharacterAttributes(attributeSet, true); 
         topPane.setText("Welcome to our Text to Speech Editor!\n"
-        		+ "Start by creating a new text file (File>New File) or opening an existing one (File>Open File)."); //top panel stoixeia
+        		+ "Start by creating a new text file (File>New File) or opening an existing one (File>Open File).");
         topPane.setEditable(false);
 	}
 	
 	private JMenuBar initMenu() {
 		
-		JMenuItem newFile=new JMenuItem("New File");    							//
-		JMenuItem open=new JMenuItem("Open File");    							//
-		JMenuItem save=new JMenuItem("Save File");    							//
+		JMenuItem newFile=new JMenuItem("New File");
+		JMenuItem open=new JMenuItem("Open File");
+		JMenuItem save=new JMenuItem("Save File");
 		JMenuItem edit=new JMenuItem("Save Edits");
 		
-		JMenuItem playAll=new JMenuItem("Voice the text");    					//OLA ta onomata kai to pws 8a emfanizontai katw apo ta ergaleia
-		JMenuItem playLine=new JMenuItem("Voice a line");    						//
+		JMenuItem playAll=new JMenuItem("Voice the text");
+		JMenuItem playLine=new JMenuItem("Voice a line");
 		JMenuItem playAllEncoded = new JMenuItem("Voice the text encoded");
 		JMenuItem playLineEncoded = new JMenuItem("Voice a line encoded");
 		JMenuItem encodingStrat = new JMenu("Encoding Methods (Default: Atbash)");
-		JMenuItem Atbash=new JMenuItem("Atbash");    					//
-		JMenuItem Rot_13=new JMenuItem("ROT13");  			//
-		JMenuItem reverseEnable=new JMenuItem("Enable reverse reading");    		//
-		JMenuItem reverseDisable=new JMenuItem("Disable reverse reading");			//
+		JMenuItem Atbash=new JMenuItem("Atbash");
+		JMenuItem Rot_13=new JMenuItem("ROT13");
+		JMenuItem reverseEnable=new JMenuItem("Enable reverse reading");
+		JMenuItem reverseDisable=new JMenuItem("Disable reverse reading");
 								
-		JMenuItem volume=new JMenuItem("Volume");    								//
-		JMenuItem pitch=new JMenuItem("Pitch");    						//
-		JMenuItem speed=new JMenuItem("Rate");								//
+		JMenuItem volume=new JMenuItem("Volume");
+		JMenuItem pitch=new JMenuItem("Pitch");
+		JMenuItem speed=new JMenuItem("Rate");
 		
-		JMenuItem start=new JMenuItem("Start recording Actions for new Macro"); 				//
-		JMenuItem stop=new JMenuItem("Stop recording Actions for Macro"); 					//
-		JMenuItem re_do=new JMenuItem("Use recorded Macro"); 				//
+		JMenuItem start=new JMenuItem("Start recording Actions for new Macro");
+		JMenuItem stop=new JMenuItem("Stop recording Actions for Macro");
+		JMenuItem re_do=new JMenuItem("Use recorded Macro");
 		
-		JMenuBar menubar=new JMenuBar();   // kane thn mpara
-		JMenu file=new JMenu("File");    //
-		JMenu play=new JMenu("Playback");      //
-		JMenu soundbar=new JMenu("Audio");//      
-		JMenu replay=new JMenu("Macro Tools");     // 
+		JMenuBar menubar=new JMenuBar();
+		JMenu file=new JMenu("File");
+		JMenu play=new JMenu("Playback");
+		JMenu soundbar=new JMenu("Audio");      
+		JMenu replay=new JMenu("Macro Tools"); 
 
-		CommandsFactory factory = new CommandsFactory(); 				//initialise commands
-		newFile.addActionListener(factory.createCommand("FileNew"));	//and pair them to
-		open.addActionListener(factory.createCommand("FileOpen"));		//their respective
-		save.addActionListener(factory.createCommand("FileSave"));		//menu items
+		CommandsFactory factory = new CommandsFactory();
+		newFile.addActionListener(factory.createCommand("FileNew"));
+		open.addActionListener(factory.createCommand("FileOpen"));
+		save.addActionListener(factory.createCommand("FileSave"));
 		edit.addActionListener(factory.createCommand("TextSave"));
 		
 		playAll.addActionListener(factory.createCommand("TextPlayAll"));
@@ -146,25 +146,25 @@ public class GUI extends JFrame {
 		re_do.addActionListener(factory.createCommand("MacroManager"));
 		
 		
-		file.add(newFile); file.add(open);file.add(save);file.add(edit);   																					//
+		file.add(newFile); file.add(open);file.add(save);file.add(edit);
 		play.add(playAll);play.add(playLine);play.add(playAllEncoded);play.add(playLineEncoded);play.add(encodingStrat);play.add(reverseEnable);play.add(reverseDisable);//
-		encodingStrat.add(Atbash);encodingStrat.add(Rot_13);											//bale sta ergaleia ta antistoixa pou exoun
-		soundbar.add(volume);soundbar.add(pitch);soundbar.add(speed);    								//
-		replay.add(start);replay.add(stop);replay.add(re_do);    						//
+		encodingStrat.add(Atbash);encodingStrat.add(Rot_13);
+		soundbar.add(volume);soundbar.add(pitch);soundbar.add(speed);
+		replay.add(start);replay.add(stop);replay.add(re_do);
 		
-		menubar.add(file);menubar.add(play);menubar.add(soundbar);menubar.add(replay); // bale ta ergaleia sthn mpara
+		menubar.add(file);menubar.add(play);menubar.add(soundbar);menubar.add(replay);
 		return menubar;
 	}
 	
 	public void initNewFileDialog() {
-		title = JOptionPane.showInputDialog(frame,"Enter Title"); // get title me arxiko para8uro
-		author = JOptionPane.showInputDialog(frame,"Enter Author"); // get author me arxiko para8uro
+		title = JOptionPane.showInputDialog(frame,"Enter Title");
+		author = JOptionPane.showInputDialog(frame,"Enter Author");
 		if (title != null && author != null) {
-			creationTime = new Date().toString();  //Time of file's creation
+			creationTime = new Date().toString();
 			topPane.setText("Title: "+title+"\n"+
 					"Author: "+author+"\n" +
 					"Time of file creation: " +creationTime+"\n"+
-					"Time of last file save: "); //toppanel stoixeia
+					"Time of last file save: ");
 			botPane.setEditable(true);
 	        botPane.setText("");
 	        botPane.getDocument().putProperty("source", botPane);
@@ -175,19 +175,19 @@ public class GUI extends JFrame {
 	}
 	
 	public void initOpenFileDialog() {
-		JFileChooser fileChooser=new JFileChooser(); //standard entolh gia na briskeis file   
+		JFileChooser fileChooser=new JFileChooser();
 		
 		int i=fileChooser.showOpenDialog(this);    
-		if(i==JFileChooser.APPROVE_OPTION){ // ama nai 
+		if(i==JFileChooser.APPROVE_OPTION){
 			File openFile;
 			if(!fileChooser.getSelectedFile().getName().endsWith(".txt")) {
 				openFile = new File(fileChooser.getSelectedFile().getAbsolutePath() + ".txt");
 			}else {
-				openFile=fileChooser.getSelectedFile();    //pare to arxeio 
+				openFile=fileChooser.getSelectedFile();
 			}
-			String filePath=openFile.getPath();    // to path
+			String filePath=openFile.getPath();
 			this.filePath = filePath;
-			try{  //mikro elegxoi kai balto sto botpanel
+			try{
 			BufferedReader bufferedReader=new BufferedReader(new FileReader(filePath));    
 			String tempText="", finalText="";
 			tempText = bufferedReader.readLine();
@@ -228,16 +228,12 @@ public class GUI extends JFrame {
 	
 	public void initSaveFileDialog() {
 		saveTime = new Date().toString();
-		topPane.setText("Title: "+title+"\n"+
-				"Author: "+author+"\n" +
-				"Time of file creation: " +creationTime+"\n"+
-				"Time of last file save: "+saveTime);
-		final JFileChooser saveAsFileChooser = new JFileChooser(); // pare ta axeia
-	    int actionDialog = saveAsFileChooser.showSaveDialog(frame); // 
-	    if (actionDialog == JFileChooser.APPROVE_OPTION) {		// an nai
+		final JFileChooser saveAsFileChooser = new JFileChooser();
+	    int actionDialog = saveAsFileChooser.showSaveDialog(frame);
+	    if (actionDialog == JFileChooser.APPROVE_OPTION) {
 	    	File file = saveAsFileChooser.getSelectedFile();
 		    if (!file.getName().endsWith(".txt")) {
-		       file = new File(file.getAbsolutePath() + ".txt"); //bale txt an den eixe eidh txt
+		       file = new File(file.getAbsolutePath() + ".txt");
 		    }
 		    this.filePath = file.getAbsolutePath();
 		    BufferedWriter outFile = null;
@@ -256,6 +252,10 @@ public class GUI extends JFrame {
 		    }finally {
 		    	if (outFile != null) {
 		    		try {
+		    			topPane.setText("Title: "+title+"\n"+
+		    					"Author: "+author+"\n" +
+		    					"Time of file creation: " +creationTime+"\n"+
+		    					"Time of last file save: "+saveTime);
 		    			outFile.close();
 		        	}catch (IOException exe) {}
 		        }
@@ -266,9 +266,16 @@ public class GUI extends JFrame {
 
 	public void initPlayLineDialog() {
 		try {
-			int lineNumber = Integer.parseInt(JOptionPane.showInputDialog(frame,"Enter number of line to voice"))-1;
-			if (lineNumber < botPane.getText().split("\\r?\\n").length && lineNumber >= 0) {
-				lineToPlay = lineNumber;
+			String input = JOptionPane.showInputDialog(frame,"Enter number of line to voice");
+			if (input == null) {
+				return;
+			}
+			if (input.isEmpty()) {
+				throw new NumberFormatException();
+			}
+			int lineNumber = Integer.parseInt(input);
+			if (lineNumber-1 < botPane.getText().split("\\r?\\n").length && lineNumber-1 >= 0) {
+				lineToPlay = lineNumber-1;
 			}else {
 				JOptionPane.showMessageDialog(frame, "The line you asked for is out of bounds, please try again", "ERROR", JOptionPane.ERROR_MESSAGE);
 				initPlayLineDialog();

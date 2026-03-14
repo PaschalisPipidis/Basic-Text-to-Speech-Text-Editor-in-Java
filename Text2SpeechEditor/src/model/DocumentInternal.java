@@ -117,6 +117,9 @@ public class DocumentInternal {
 	}
 	
 	public void playLine(int lineNumber) {
+		if(lineNumber < 0 || lineNumber >= lines.size()) {
+			return;
+		}
 		if(isReversed) {
 			Line lineToPlay = reversedLines.get(lineNumber);
 			lineToPlay.playLine();
